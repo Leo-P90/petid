@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+  const router = useRouter()
   const [connected, setConnected] = useState<boolean | null>(null)
 
   useEffect(() => {
@@ -18,9 +20,17 @@ export default function Home() {
     testConnection()
   }, [])
 
+  async function handleRegister() {
+    router.push('/auth/register')
+  }
+
+  async function handleLogin() {
+    router.push('/auth/login')
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-orange-50 to-white flex flex-col items-center justify-center px-4">
-      
+
       <div className="text-center mb-10">
         <div className="text-6xl mb-4">🐾</div>
         <h1 className="text-4xl font-bold text-orange-500 mb-2">PetID</h1>
@@ -59,10 +69,16 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col gap-3 w-full max-w-sm">
-        <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-2xl text-lg transition-colors">
+        <button
+          onClick={handleRegister}
+          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-2xl text-lg transition-colors"
+        >
           Başla
         </button>
-        <button className="bg-white hover:bg-gray-50 text-orange-500 font-semibold py-4 rounded-2xl text-lg border-2 border-orange-200 transition-colors">
+        <button
+          onClick={handleLogin}
+          className="bg-white hover:bg-gray-50 text-orange-500 font-semibold py-4 rounded-2xl text-lg border-2 border-orange-200 transition-colors"
+        >
           Giriş Yap
         </button>
       </div>
